@@ -94,9 +94,9 @@ def getLxcPath():
     lxcPath = ""
 
     if os.geteuid():
-        base_path = getLxcPath('~/.local/share/lxc')
+        base_path = '~/.local/share/lxc'
     else:
-        base_path = getLxcPath('/var/lib/lxc')
+        base_path = '/var/lib/lxc'
 
     if os.path.isfile('/etc/lxc/lxc.conf') or os.path.isfile('~/.config/lxc/lxc.conf'):
         configPath = ""
