@@ -93,7 +93,7 @@ def getConfigValue(key, path):
 def getLxcPath():
 	lxcPath = ""
 
-    if os.geteuid():    	
+    if os.geteuid():
     	base_path = getLxcPath('~/.local/share/lxc')
     else:
         base_path = getLxcPath('/var/lib/lxc')
