@@ -66,56 +66,56 @@ class ContainerNotRunning(Exception):
 lxcConfigDict = None
 
 def configToDictionary(path):
-	global lxcConfigDict
-	lxcConfigDict = {}
-	
-	if os.path.isfile(path):
-		f = open(path, 'r')
-		for line in f:
-			if (len(line.strip())):
-				k, v = line.strip().split('=')
-				lxcConfigDict[k.strip()] = v.replace('"', '').strip()
+    global lxcConfigDict
+    lxcConfigDict = {}
+    
+    if os.path.isfile(path):
+        f = open(path, 'r')
+        for line in f:
+            if (len(line.strip())):
+                k, v = line.strip().split('=')
+                lxcConfigDict[k.strip()] = v.replace('"', '').strip()
 
-		f.close()
-	
-	return lxcConfigDict
+        f.close()
+    
+    return lxcConfigDict
 
 def getConfigValue(key, path):
-	global lxcConfigDict
-	
-	if lxcConfigDict is None:
-		configToDictionary(path)
-	if key in lxcConfigDict:
-		return lxcConfigDict[key]
-	else:
-		return ""
+    global lxcConfigDict
+    
+    if lxcConfigDict is None:
+        configToDictionary(path)
+    if key in lxcConfigDict:
+        return lxcConfigDict[key]
+    else:
+        return ""
 
 def getLxcPath():
-	lxcPath = ""
+    lxcPath = ""
 
-    if os.geteuid():    	
-    	base_path = getLxcPath('~/.local/share/lxc')
+    if os.geteuid():        
+        base_path = getLxcPath('~/.local/share/lxc')
     else:
         base_path = getLxcPath('/var/lib/lxc')
 
-	if os.path.isfile('/etc/lxc/lxc.conf') or os.path.isfile('~/.config/lxc/lxc.conf'):
-		configPath = ""
-		
-		if ( os.path.isfile('~/.config/lxc/lxc.conf') ):
-			configPath = '~/.config/lxc/lxc.conf'
-		else:
-			configPath = '/etc/lxc/lxc.conf'
-		
-		if (len(getConfigValue('lxc.lxcpath', configPath))):
-			lxcPath = getConfigValue('lxc.lxcpath', configPath)
-		else:
-			lxcPath = base_path
-	else:
-		lxcPath = base_path
-	
-	lxcPath = lxcPath.rstrip('/')
-	
-	return lxcPath
+    if os.path.isfile('/etc/lxc/lxc.conf') or os.path.isfile('~/.config/lxc/lxc.conf'):
+        configPath = ""
+        
+        if ( os.path.isfile('~/.config/lxc/lxc.conf') ):
+            configPath = '~/.config/lxc/lxc.conf'
+        else:
+            configPath = '/etc/lxc/lxc.conf'
+        
+        if (len(getConfigValue('lxc.lxcpath', configPath))):
+            lxcPath = getConfigValue('lxc.lxcpath', configPath)
+        else:
+            lxcPath = base_path
+    else:
+        lxcPath = base_path
+    
+    lxcPath = lxcPath.rstrip('/')
+    
+    return lxcPath
 
 def exists(container):
     '''
@@ -196,8 +196,8 @@ def ls():
 
     Note: Directory mode for Ubuntu 12/13 compatibility
     '''
-	
-	base_path = getLxcPath()
+    
+    base_path = getLxcPath()
 
     try:
         ct_list = [x for x in os.listdir(base_path)
