@@ -472,7 +472,7 @@ def push_config_value(key, value, container=None):
 
     if container:
         
-        filename = getLxcPath() + '/' + name + '/config'
+        filename = getLxcPath() + '/' + container + '/config'
 
         save = save_cgroup_devices(filename=filename)
 
